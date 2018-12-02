@@ -1,6 +1,9 @@
 from flask import Flask, jsonify
 import json
 import random
+import os
+
+port = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
 
@@ -19,4 +22,4 @@ def joke():
     return jsonify(dict(joke=random.choice(cache), status=200))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=port)
