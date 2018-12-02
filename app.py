@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 import json
 import random
-from discord.ext.commands import BucketType
 
 app = Flask(__name__)
 
