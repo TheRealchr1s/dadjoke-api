@@ -19,4 +19,4 @@ def joke():
     return jsonify(dict(joke=random.choice(cache), status=200))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=80)
+    app.run(host='0.0.0.0', debug=True, port=8080)
