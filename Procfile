@@ -1,1 +1,1 @@
-worker: python app.py
+worker: sudo python app.py
