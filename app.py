@@ -1,25 +1,35 @@
-from flask import Flask, jsonify
+"""App for dadjokes."""
 import json
-import random
 import os
+import random
 
-port = int(os.environ.get('PORT', 5000))
+from flask import Flask, jsonify
 
-app = Flask(__name__)
+PORT = int(os.environ.get("PORT", 5000))
+INFO_HTML = "<h1>Endpoints:<br><br>GET /api/v1/dadjoke<br>GET /api/v1/joke</h1>"
+
+APP = Flask(__name__)
 
 with open("jokes.json", "r") as f:
-    cache = list(json.loads(f.read()).values())
+    CACHE = tuple(json.loads(f.read()).values())
 
-@app.route("/")
-@app.route("/api")
-@app.route("/info")
+
+@APP.route("/")
+@APP.route("/api")
+@APP.route("/info")
 def info():
-    return "<h1>Endpoints:<br><br>GET /api/v1/dadjoke<br>GET /api/v1/joke</h1>"
+    """Shows info for the API"""
+    return INFO_HTML
 
-@app.route("/api/v1/joke")
-@app.route("/api/v1/dadjoke")
+
+@APP.route("/api/v1/joke")
+@APP.route("/api/v1/dadjoke")
 def joke():
-    return jsonify(dict(joke=random.choice(cache), status=200))
+    """Gets a joke"""
+    return jsonify(
+        dict(joke=random.choice(CACHE), status=200)
+    )
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=port)
+
+if __name__ == "__main__":
+    APP.run(host="0.0.0.0", debug=True, port=PORT)
